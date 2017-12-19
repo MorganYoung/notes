@@ -5,7 +5,7 @@ CORS是一个W3C标准，全称是"跨域资源共享"（Cross-origin resource s
 它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。
 本文详细介绍CORS的内部机制。
 
-###一、简介
+### 一、简介
 ---
 CORS需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能，IE浏览器不能低于IE10。
 
@@ -13,7 +13,7 @@ CORS需要浏览器和服务器同时支持。目前，所有浏览器都支持�
 
 因此，实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。
 
-###二、两种请求
+### 二、两种请求
 ---
 浏览器将CORS请求分成两类：简单请求（simple request）和非简单请求（not-so-simple request）。
 
@@ -41,7 +41,7 @@ Content-Type：只限于三个值application/x-www-form-urlencoded、multipart/f
 
 浏览器对这两种请求的处理，是不一样的。
 
-###三、简单请求
+### 三、简单请求
 ---
 ####3.1 基本流程
 对于简单请求，浏览器直接发出CORS请求。具体来说，就是在头信息之中，增加一个Origin字段。
@@ -79,7 +79,7 @@ Content-Type: text/html; charset=utf-8
 3. Access-Control-Expose-Headers
 	该字段可选。CORS请求时，XMLHttpRequest对象的getResponseHeader()方法只能拿到6个基本字段：Cache-Control、Content-Language、Content-Type、Expires、Last-Modified、Pragma。如果想拿到其他字段，就必须在Access-Control-Expose-Headers里面指定。上面的例子指定，getResponseHeader('FooBar')可以返回FooBar字段的值。
 
-####3.2 withCredentials 属性
+#### 3.2 withCredentials 属性
 上面说到，CORS请求默认不发送Cookie和HTTP认证信息。如果要把Cookie发到服务器，一方面要服务器同意，指定Access-Control-Allow-Credentials字段。
 
 Access-Control-Allow-Credentials: true
@@ -96,9 +96,9 @@ xhr.withCredentials = false;
 
 需要注意的是，如果要发送Cookie，Access-Control-Allow-Origin就不能设为星号，必须指定明确的、与请求网页一致的域名。同时，Cookie依然遵循同源政策，只有用服务器域名设置的Cookie才会上传，其他域名的Cookie并不会上传，且（跨源）原网页代码中的document.cookie也无法读取服务器域名下的Cookie。
 
-###四、非简单请求
+### 四、非简单请求
 ---
-####4.1 预检请求
+#### 4.1 预检请求
 非简单请求是那种对服务器有特殊要求的请求，比如请求方法是PUT或DELETE，或者Content-Type字段的类型是application/json。
 非简单请求的CORS请求，会在正式通信之前，增加一次HTTP查询请求，称为"预检"请求（preflight）。
 浏览器先询问服务器，当前网页所在的域名是否在服务器的许可名单之中，以及可以使用哪些HTTP动词和头信息字段。只有得到肯定答复，浏览器才会发出正式的XMLHttpRequest请求，否则就报错。
@@ -133,7 +133,7 @@ User-Agent: Mozilla/5.0...
 2. Access-Control-Request-Headers
 	该字段是一个逗号分隔的字符串，指定浏览器CORS请求会额外发送的头信息字段，上例是X-Custom-Header。
 
-####4.2 预检请求的回应
+#### 4.2 预检请求的回应
 服务器收到"预检"请求以后，检查了Origin、Access-Control-Request-Method和Access-Control-Request-Headers字段以后，确认允许跨源请求，就可以做出回应。
 
 ```
@@ -182,7 +182,7 @@ Access-Control-Max-Age: 1728000
 4. Access-Control-Max-Age
 	该字段可选，用来指定本次预检请求的有效期，单位为秒。上面结果中，有效期是20天（1728000秒），即允许缓存该条回应1728000秒（即20天），在此期间，不用发出另一条预检请求。
 
-####4.3 浏览器的正常请求和回应
+#### 4.3 浏览器的正常请求和回应
 
 一旦服务器通过了"预检"请求，以后每次浏览器正常的CORS请求，就都跟简单请求一样，会有一个Origin头信息字段。服务器的回应，也都会有一个Access-Control-Allow-Origin头信息字段。
 下面是"预检"请求之后，浏览器的正常CORS请求。
@@ -208,7 +208,7 @@ Content-Type: text/html; charset=utf-8
 
 上面头信息中，Access-Control-Allow-Origin字段是每次回应都必定包含的。
 
-####五、与JSONP的比较
+### 五、与JSONP的比较
 
 CORS与JSONP的使用目的相同，但是比JSONP更强大。
 JSONP只支持GET请求，CORS支持所有类型的HTTP请求。JSONP的优势在于支持老式浏览器，以及可以向不支持CORS的网站请求数据。
