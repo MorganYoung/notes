@@ -43,7 +43,7 @@ Content-Type：只限于三个值application/x-www-form-urlencoded、multipart/f
 
 ### 三、简单请求
 ---
-####3.1 基本流程
+#### 3.1 基本流程
 对于简单请求，浏览器直接发出CORS请求。具体来说，就是在头信息之中，增加一个Origin字段。
 下面是一个例子，浏览器发现这次跨源AJAX请求是简单请求，就自动在头信息之中，添加一个Origin字段。
 
