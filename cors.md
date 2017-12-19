@@ -1,4 +1,4 @@
-##CORS跨域资源共享
+## CORS跨域资源共享
 摘自[http://www.ruanyifeng.com/blog/2016/04/cors.html]
 
 CORS是一个W3C标准，全称是"跨域资源共享"（Cross-origin resource sharing）。
