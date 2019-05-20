@@ -1,11 +1,11 @@
-#使用ELK进行nginx日志的收集和统计
+# 使用ELK进行nginx日志的收集和统计
 
 ## 使用版本
 * logstash 2.3.4
 * kibana 4
 * Elasticsearch 2.3.4
 
-##功能流程
+## 功能流程
 * logstash 作为日志收集，解析层多个字段，存入es索引中，索引按天进行迭代增加。
 * Elasticsearch 保存结构化的日志对拆分好的字段进行索引。
 * kibana 查询es 进行报表统计和图形统计
